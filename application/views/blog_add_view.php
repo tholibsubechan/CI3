@@ -27,9 +27,10 @@
       </div>
     </nav>
      <main role="main" class="container">
-<div class="row">
+      <div class="row">
         <div class="col">
-          <form action="<?php echo base_url('index.php/Blog/add_action') ?>" method="post">
+          <?php echo  $error ?>
+          <?php echo form_open_multipart('Blog/add_action');?>
             <div class="form-group">
     <label for="id">Id</label>
     <input type="text" class="form-control" id="id" name="id" placeholder="Id">
@@ -52,7 +53,7 @@
   </div>
   <div class="form-group">
     <label for="image_file">Image</label>
-    <input type="text" class="form-control" id="image_file" name="image_file" placeholder="Image">
+    <input type = "file" name = "image_file" size = "20" /> 
   </div>
   <input type="submit" name="add" value="Tambah" class="btn btn-success">
           </form>
