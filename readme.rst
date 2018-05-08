@@ -68,3 +68,9 @@ Acknowledgement
 
 The CodeIgniter team would like to thank EllisLab, all the
 contributors to the CodeIgniter project and you, the CodeIgniter user.
+
+******************
+Programer Aplikasi
+******************
+
+1641720100 Tholib Subechan TI-2B
