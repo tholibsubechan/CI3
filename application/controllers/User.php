@@ -51,6 +51,7 @@ class User extends CI_Controller{
 
         if($this->form_validation->run() === FALSE){
             $this->load->view('header');
+            $this->load->view('navbar');
             $this->load->view('users/login', $data);
             $this->load->view('footer');
         } else {
@@ -65,8 +66,9 @@ class User extends CI_Controller{
     if($user_id){
         // Buat session
         $user_data = array(
-            'user_id' => $user_id,
+            'user_id' => $user_id['user_id'],
             'username' => $username,
+            'level' => $user_id['level'],
             'logged_in' => true
         );
          $this->session->set_userdata($user_data);
