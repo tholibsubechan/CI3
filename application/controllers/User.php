@@ -66,17 +66,20 @@ class User extends CI_Controller{
     if($user_id){
         // Buat session
         $user_data = array(
-            'user_id' => $user_id['user_id'],
+            'user_id' => $user_id,
             'username' => $username,
-            'level' => $user_id['level'],
+            'level' => $this->User_model->getLevel($user_id),
             'logged_in' => true
         );
          $this->session->set_userdata($user_data);
 
         // Set message
         $this->session->set_flashdata('user_loggedin', 'You are now logged in');
-
-        redirect('blog');
+        if($user_data['level'] == '1'){
+            redirect('admin/Blog');
+        }else{
+            redirect('User/dashboard');
+        }
     } else {
         // Set message
         $this->session->set_flashdata('login_failed', 'Login is invalid');
@@ -89,11 +92,30 @@ class User extends CI_Controller{
         $this->session->unset_userdata('logged_in');
         $this->session->unset_userdata('user_id');
         $this->session->unset_userdata('username');
+        $this->session->unset_userdata('level');
 
         // Set message
         $this->session->set_flashdata('user_loggedout', 'Anda sudah log out');
 
         redirect('User/login');
+    }
+
+    public function dashboard(){
+
+        if(!$this->session->userdata('logged_in')){
+            redirect('User/login');
+        }
+
+        $username = $this->session->userdata('username');
+
+        // Dapatkan detail user
+        $data['user'] = $this->User_model->get_user_details( $username );
+
+        // Load dashboard
+        $this->load->view('header');
+        $this->load->view('navbar');
+        $this->load->view('users/dashboard', $data);
+        $this->load->view('footer');
     }
 
 

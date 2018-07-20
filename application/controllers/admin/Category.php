@@ -1,9 +1,16 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class category extends CI_Controller {
+class Category extends CI_Controller {
+	function __construct() {
+     parent::__construct();
+      //load model Customer_m
+      $this->load->model('category_model');
+      //load helper form 
+      $this->load->helper('form','url');  
+   }
 
-	 public function create() 
+	 public function tambah() 
 	{
 		// Judul Halaman
 		$data['page_title'] = 'Buat Kategori Baru';
@@ -24,19 +31,17 @@ class category extends CI_Controller {
 		);
 
 		if($this->form_validation->run() === FALSE){
-	
-			$this->load->view('cat_create', $data);
-		
+			$this->load->view('admin/category/tambah', $data);
 		} 
 		else {
-			$this->category_model->create_category();
-			redirect('category');
+			$this->category_model->tambah();
+			redirect('admin/Category');
 		}
 	}
 	public function index()
 	{
-		$data['cat_read'] = $this->category_model->read_category();
-		$this->load->view('cat_read',$data);
+		$data['getData'] = $this->category_model->getData();
+		$this->load->view('admin/category/category.php',$data);
 	}
 	public function update($id)
 	{
@@ -47,26 +52,27 @@ class category extends CI_Controller {
 		$this->form_validation->set_rules(
 			'cat_name',
 			'Nama Kategori',
-			'required|is_unique[categories.cat_name]',
+			'required|is_unique[category.cat_name]',
 			array(
 				'required' => 'Isi %s donk, males amat.',
 				'is_unique' => 'Judul <strong>' . $this->input->post('cat_name') . '</strong> sudah ada bosque.'
 			)
 		);
-		$data['cat_update'] = $this->category_model->read_category($id)[0];
+		$data['update'] = $this->category_model->getData($id)[0];
 		if($this->form_validation->run() === FALSE){
 	
-			$this->load->view('cat_update', $data);
+			$this->load->view('admin/category/update', $data);
 		
 		} 
 		else {
-			$this->category_model->update_category($id);
-			redirect('category');
+			$set = $this->input->post();
+			$this->category_model->update($set,$id);
+			redirect('admin/Category');
 		}
 	}
 	public function delete($id)
 	{
-		$this->category_model->delete_category($id);
-		redirect('category');
+		$this->category_model->delete($id);
+		redirect('admin/Category');
 	}
 }

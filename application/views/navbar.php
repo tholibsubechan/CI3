@@ -9,9 +9,6 @@
             <a class="nav-link" href="<?php echo base_url('index.php/Blog') ?>">Blog (yang lawas)</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="<?php echo base_url("index.php/Blog/datatable") ?>">Blog With Datatable</a>
-          </li>
-          <li class="nav-item">
             <a class="nav-link" href="<?php echo base_url("index.php/Blog/pagination") ?>">Blog With Pagination</a>
           </li>
           <li class="nav-item">

@@ -1,38 +1,34 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class category_model extends CI_Model{
+class Category_model extends CI_Model{
 
 
 
-    public function create_category()
+    public function tambah()
     {
-        $data = array(
-            'cat_name'          => $this->input->post('cat_name'),
-            'cat_description'   => $this->input->post('cat_description')
-        );
-
-        return $this->db->insert('category', $data);
+        $data = $this->input->post();
+        if ($this->db->insert("category", $data)) { 
+            return true; 
+         } 
     }
 
-    public function read_category($id=null)
+    public function getData()
     {
-    	if($id != null)
-    		$this->db->where('cat_id',$id);
-    	$query = $this->db->get('category');
-    	return $query->result_array();
+    //$get eksekusi fungsi select
+       //hasil eksesusi = "select * from users
+       $query = $this->db->get('category');
+       //untuk merubah table menjadi array
+        return $query->result_array();
     }
-    public function update_category($id)
-    {
-    	$data = array(
-            'cat_name'          => $this->input->post('cat_name'),
-            'cat_description'   => $this->input->post('cat_description')
-        );
 
-    	$this->db->where('cat_id',$id);
-    	$this->db->update('category',$data);
+    public function update($data,$id)
+    {
+    	 $this->db->set($data); 
+         $this->db->where("cat_id", $id); 
+         $this->db->update("category", $data); 
     }
-    public function delete_category($id)
+    public function delete($id)
     {
     	$this->db->where('cat_id',$id);
     	$this->db->delete('category');

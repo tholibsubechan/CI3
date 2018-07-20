@@ -28,6 +28,13 @@
        <label>Konfirmasi Password</label>
        <input type="text" class="form-control" name="password2" placeholder="Konfirmasi Password" value="<?php echo set_value('password') ?>">
    </div>
+
+   <div class="form-group">
+      <label for="">Pilih Paket Membership</label>
+      <div class="form-check">
+      <input class="form-check-input" type="radio" name="membership" id="goldmember" value="2" checked>
+      <label class="form-check-label" for="goldmember">Gold</label>
+  </div>
    <button type="submit" class="btn btn-primary btn-block">Daftar</button>
    </main>
 <?php echo form_close(); ?>
